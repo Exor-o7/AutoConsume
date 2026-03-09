@@ -1,0 +1,73 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoConsume</AssemblyName>
+    <RootNamespace>AutoConsume</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- ECO server runs on Windows; suppress the platform-compat analyzer noise -->
+    <NoWarn>CA1416</NoWarn>
+    <!--
+      ECO 0.12.x uses Eco.ReferenceAssemblies from NuGet.
+      If the package can't resolve, open NuGet Package Manager, search for
+      "Eco.ReferenceAssemblies" (check "Include prerelease"), and install
+      the latest 0.12.x-* version manually.
+    -->
+  </PropertyGroup>
+
+  <!--
+    ══════════════════════════════════════════════════════════════════════════
+    OPTION A — NuGet (easiest, try this first)
+    Open NuGet Package Manager → search "Eco.ReferenceAssemblies" →
+    check "Include prerelease" → install the latest 0.12.x-* version.
+    If the package is available, leave the block below as-is.
+    ══════════════════════════════════════════════════════════════════════════
+  -->
+  <ItemGroup>
+    <PackageReference Include="Eco.ReferenceAssemblies" Version="0.12.*-*" />
+  </ItemGroup>
+
+  <!--
+    ══════════════════════════════════════════════════════════════════════════
+    OPTION B — Direct DLL references (use if NuGet 0.12.x isn't available yet)
+    1. Comment out the PackageReference block above.
+    2. Un-comment the Reference block below.
+    3. Update EcoServerPath to match your ECO server install location.
+    ══════════════════════════════════════════════════════════════════════════
+  -->
+  <!--
+  <PropertyGroup>
+    <EcoServerPath>C:\EcoServer\Eco_Data\Server</EcoServerPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Eco.Core">
+      <HintPath>$(EcoServerPath)\Eco.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Eco.Gameplay">
+      <HintPath>$(EcoServerPath)\Eco.Gameplay.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Eco.Shared">
+      <HintPath>$(EcoServerPath)\Eco.Shared.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Eco.ModKit">
+      <HintPath>$(EcoServerPath)\Eco.ModKit.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  -->
+
+  <!--
+    Optional: auto-copy the compiled DLL to your local ECO server Mods folder.
+    Un-comment and update the path to match your server install.
+  -->
+  <!--
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /y /i &quot;$(TargetPath)&quot; &quot;C:\EcoServer\Eco_Data\Server\Mods\AutoConsume\&quot;" />
+  </Target>
+  -->
+
+</Project>

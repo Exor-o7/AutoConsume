@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "9XwJ29OqyyU=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\exor\\OneDrive\\Documents\\ECO Projects\\AutoConsume\\AutoConsume.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\exor\\.nuget\\packages\\eco.referenceassemblies\\0.12.0.7-beta-release-979\\eco.referenceassemblies.0.12.0.7-beta-release-979.nupkg.sha512",
+    "C:\\Users\\exor\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.24\\microsoft.netcore.app.ref.8.0.24.nupkg.sha512",
+    "C:\\Users\\exor\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.24\\microsoft.windowsdesktop.app.ref.8.0.24.nupkg.sha512",
+    "C:\\Users\\exor\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.24\\microsoft.aspnetcore.app.ref.8.0.24.nupkg.sha512"
+  ],
+  "logs": []
+}
