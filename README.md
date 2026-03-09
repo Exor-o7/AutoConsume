@@ -51,11 +51,3 @@ Player toggle preferences are saved in:
 
 - `/autoconsume` or `/ac`
   - Toggles AutoConsume on/off for that player.
-
-## Build & release
-
-This repo includes a GitHub Actions workflow:
-
-- `.github/workflows/release.yml`
-
-When you push a tag like `v1.0.0`, it builds Release output and uploads a ZIP asset to a GitHub Release.
