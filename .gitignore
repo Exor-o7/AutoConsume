@@ -1,0 +1,19 @@
+# Build output
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+
+# IDE settings
+.vs/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet cache/packages folder (if used locally)
+packages/
