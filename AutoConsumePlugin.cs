@@ -53,11 +53,11 @@ namespace AutoConsume
         // Tracks which food slot to eat from next so foods alternate evenly.
         private readonly ConcurrentDictionary<string, int> nextSlotIndex = new();
 
-        // ── Per-player opt-out ────────────────────────────────────────────────────
-        // Players toggle this via /autoconsume. True = enabled (default).
+        // ── Per-player opt-in ─────────────────────────────────────────────────────
+        // Players toggle this via /ac. False = disabled (default).
         private readonly ConcurrentDictionary<string, bool> playerEnabled = new();
 
-        public bool IsPlayerEnabled(string userName) => playerEnabled.GetOrAdd(userName, true);
+        public bool IsPlayerEnabled(string userName) => playerEnabled.GetOrAdd(userName, false);
         public void SetPlayerEnabled(string userName, bool enabled)
         {
             playerEnabled[userName] = enabled;
@@ -118,10 +118,10 @@ namespace AutoConsume
             try
             {
                 if (!File.Exists(playerPrefsPath)) return;
-                var disabledNames = JsonSerializer.Deserialize<List<string>>(File.ReadAllText(playerPrefsPath));
-                if (disabledNames == null) return;
-                foreach (var name in disabledNames)
-                    playerEnabled[name] = false;
+                var enabledNames = JsonSerializer.Deserialize<List<string>>(File.ReadAllText(playerPrefsPath));
+                if (enabledNames == null) return;
+                foreach (var name in enabledNames)
+                    playerEnabled[name] = true;
             }
             catch (Exception ex)
             {
@@ -133,14 +133,14 @@ namespace AutoConsume
         {
             try
             {
-                // Only persist players who have explicitly disabled the mod.
-                var disabledNames = playerEnabled
-                    .Where(kv => !kv.Value)
+                // Only persist players who have explicitly enabled the mod.
+                var enabledNames = playerEnabled
+                    .Where(kv => kv.Value)
                     .Select(kv => kv.Key)
                     .ToList();
                 Directory.CreateDirectory(Path.GetDirectoryName(playerPrefsPath)!);
                 File.WriteAllText(playerPrefsPath,
-                    JsonSerializer.Serialize(disabledNames, new JsonSerializerOptions { WriteIndented = true }));
+                    JsonSerializer.Serialize(enabledNames, new JsonSerializerOptions { WriteIndented = true }));
             }
             catch (Exception ex)
             {
@@ -171,11 +171,11 @@ namespace AutoConsume
         }
 
         /// <summary>
-        /// Return Succeeded so this listener never blocks or overrides auth on
-        /// any action.  We are purely observing, not gating.
+        /// Return FailedNoMessage so this listener never overrides or grants auth
+        /// on any action.  We are purely observing, not gating.
         /// </summary>
         public LazyResult ShouldOverrideAuth(IAlias? alias, IOwned? owned, GameAction? action)
-            => LazyResult.Succeeded;
+            => LazyResult.FailedNoMessage;
 
         // ── Core logic ─────────────────────────────────────────────────────────────
 

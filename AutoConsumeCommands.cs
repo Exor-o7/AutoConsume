@@ -29,7 +29,7 @@ namespace AutoConsume
             plugin.SetPlayerEnabled(user.Name, nowEnabled);
 
             string state = nowEnabled ? "enabled" : "disabled";
-            user.MsgLocStr(Localizer.DoStr($"AutoConsume {state}."));
+            user.MsgLocStr(Localizer.DoStr($"[AutoConsume] {state}. Use /ac to toggle."));
         }
     }
 }
